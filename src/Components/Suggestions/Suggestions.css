@@ -1,0 +1,24 @@
+.people {
+    background-color:white;
+    height: auto;
+    /* margin-bottom: solid 1px #737373; */
+}
+
+.cardk{
+    margin-top: 3vh;
+    height: 9vh;
+    display: flex;
+    background-color: white;
+}
+.cardk img{
+    height: 9vh;
+    width: 5vw;
+    border-radius: 50%;
+}
+h6{
+    text-decoration: none;
+    color: blue;
+}
+h5{
+    color: #737373;
+}

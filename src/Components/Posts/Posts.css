@@ -1,0 +1,54 @@
+
+.posts {
+    background-color: white;
+    height:90vh;
+    align-items: center;
+    justify-content: center;
+    overflow-y: auto;
+}
+
+.post {
+    background-color: rgb(241, 241, 241);
+    max-height: auto;
+    padding: 2em;
+    border: solid rgb(240, 214, 214) 1px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    margin-top: 3em;
+    border-radius: 3%;
+
+}
+
+
+.postAccount {
+    width: 100%;
+    border-bottom: 1px navy solid;
+}
+
+.post img {
+    margin-top: 2em;
+    max-height: 50vh !important;
+    max-width: 40vw;
+    border-radius: 10%;
+}
+
+.date {
+    margin-left: auto;
+
+}
+.content{
+    max-height: 50px;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+}
+.expanded{
+    max-height:200px;
+}
+.expandedbtn{
+background-color: aquamarine;
+border: burlywood 1px solid;
+}
+.postDesc {
+    margin-top: 1em;
+   
+}
+

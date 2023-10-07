@@ -1,0 +1,15 @@
+.navbar{
+    display: inline-flex;
+    width: 99vw;
+    height: 10vh;
+}
+
+
+.navbar .btn-outline-success {
+    color: white;
+  }
+
+  .navbar .navbar-brand,
+.navbar .nav-link {
+  color: white !important; /* Set the desired text color (white in this case) */
+}
