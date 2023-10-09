@@ -36,6 +36,9 @@ function Signup() {
 
     const navigate = useNavigate();
 
+    const date = new Date();
+
+
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
 
@@ -55,7 +58,7 @@ function Signup() {
             .then((userCredential) => {
                 console.log(userCredential);
                 updateProfile(auth.currentUser as User, {
-                    displayName: firstName + lastName
+                    displayName: firstName
                 })
                 let objId = firstName + userCredential.user.uid;
                 const userRef = doc(db, "users", objId);
@@ -63,7 +66,10 @@ function Signup() {
                     id: userCredential.user.uid,
                     firstName: firstName,
                     lastName: lastName,
-                    email: email
+                    email: email,
+                    createdAt: date.toISOString(),
+                    following: [],
+                    followers:[],
                 }).then(() => {
                     navigate("/login")
                 });

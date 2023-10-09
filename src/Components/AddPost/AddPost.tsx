@@ -1,12 +1,12 @@
 import React, { useState, useEffect, ChangeEvent } from 'react';
 
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { doc, setDoc } from 'firebase/firestore';
+import { doc, setDoc, getDoc } from 'firebase/firestore';
 import { auth, storage, db } from '../../firebase/config';
 import { listenToAuthChanges } from '../../firebase/AuthDetails';
 import { User } from 'firebase/auth';
 
-import { useNavigate  } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -19,19 +19,74 @@ function AddPost() {
 
 
   const [authUser, setAuthUser] = useState<User | null>(null);
+  const [nameData, setNameData] = useState<{ fName: string; lName: string; }[]>([]);
+  const [userName, setUserName] = useState<string>('');
 
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [desc, setdesc] = useState('')
 
 
 
+  // useEffect(() => {
+  //   const user = auth.currentUser;
+
+  //   listenToAuthChanges(auth, setAuthUser); // checking if user is logged in and storing name in authUser.
+  //   // console.log("From Homepage", listenToAuthChanges);
+
+
+
+  // }, []);
+
+
   useEffect(() => {
     const user = auth.currentUser;
-
+  
     listenToAuthChanges(auth, setAuthUser); // checking if user is logged in and storing name in authUser.
-    console.log("From Homepage", listenToAuthChanges);
+  
+    if (authUser && authUser.uid) {
+      const userId = authUser.displayName+authUser.uid;
+      const userDocRef = doc(db, 'users', userId);
+  
+      // Fetch user data from Firestore
+      getDoc(userDocRef)
+        .then((docSnapshot) => {
+          if (docSnapshot.exists()) {
+            const userData = docSnapshot.data();
+            const firstName = userData.firstName;
+            const lastName = userData.lastName;
+  
+            // Create an array with fName and lName
+            const data = [{ fName: firstName, lName: lastName }];
+  
+            // Concatenate firstName and lastName to create userName
+            const fullName = firstName + ' ' + lastName;
+  
+            // Now you have fName, lName, and userName
+            console.log('First Name:', firstName);
+            console.log('Last Name:', lastName);
+            console.log('User Name:', fullName);
+  
+            if (data) {
+              setNameData(data);
+              setUserName(fullName); // Set the userName in state
+              console.log("USER NAME IS: ",fullName);
+              
+            } else {
+              setNameData([]);
+            }
+          }
+        })
+        .catch((error) => {
+          console.error('Error fetching Firestore data:', error);
+        });
+    } else {
+      setAuthUser(null);
+      console.log('NO USER FOUND');
+    }
+  }, [authUser]);
+  
 
-  }, []);
+
 
   // Function to handle file input change
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>): void => {
@@ -45,9 +100,11 @@ function AddPost() {
   const date = new Date();
 
   const userId = authUser ? authUser.uid : ''
-  const userName = authUser ? authUser.displayName : ''
   const storagePath = selectedImage ? `images/posts/${userId}/${date}-${selectedImage.name}` : '';
   const storageRef = ref(storage, storagePath);
+
+
+
 
   const postSubmit = async () => {
     if (authUser) {
@@ -71,10 +128,24 @@ function AddPost() {
             downloadURL,
             description: desc,
             createdAt: date.toDateString(),
-            time: date.toISOString()
+            time: date.toISOString(),
           });
 
-          navigate("/");
+          // Hide addPostDiv and show success div if they exist
+          const addPostDiv = document.getElementById("addPostDiv");
+          if (addPostDiv) {
+            addPostDiv.style.display = "none";
+          }
+
+          const successDiv = document.querySelector(".success") as HTMLElement;
+          if (successDiv) {
+            successDiv.style.display = "block";
+          }
+
+          // Delay the navigation after 1.5 seconds
+          setTimeout(() => {
+            navigate("/");
+          }, 1500);
         } catch (error) {
           console.error("Error uploading image:", error);
           // Handle the error, e.g., show an error message to the user
@@ -83,53 +154,72 @@ function AddPost() {
         alert("No image selected");
       }
     } else {
-      alert("Login to add a product");
+      alert("Login to share post");
     }
   };
 
 
+
   return (
-    <div className='container col-md-7 col-xs-12 mt-md-5 ms-md-7'>
+    <>
+      <div className='container col-md-7 col-xs-12 mt-md-5 ms-md-7' id='addPostDiv'>
 
-      <div className="heading d-flex justify-content-between align-items-center">
-        <p className="text-center mb-0">Create new post</p>
-        <h6 className="mb-0" onClick={postSubmit}>Share</h6>
-      </div>
-
-      <div className="wrp row">
-        <div className="photoSelect col-md-6 col-xs-12">
-          <img alt="Posts" width="200px" height="200px" src={selectedImage ? URL.createObjectURL(selectedImage) : ''}></img>
-          <br />
-          <input
-            onChange={handleImageChange}
-
-            type="file"
-            accept="image/*"
-            className='contentPhoto ms-4'
-          />
+        <div className="heading d-flex justify-content-between align-items-center">
+          <p className="text-center mb-0">Create new post</p>
+          <h6 className="mb-0" onClick={postSubmit}>Share</h6>
         </div>
 
-        <div className="desc col-md-5 col-xs-12 ms-md-3">
-          <div className="profImg d-none d-sm-block">
-            <img
-              src="https://w7.pngwing.com/pngs/129/292/png-transparent-female-avatar-girl-face-woman-user-flat-classy-users-icon.png"
-              className="card-img-top"
-              alt="..."
+        <div className="wrp row">
+          <div className="photoSelect col-md-6 col-xs-12">
+            <img alt="Posts" width="200px" height="200px" src={selectedImage ? URL.createObjectURL(selectedImage) : ''}></img>
+            <br />
+            <input
+              onChange={handleImageChange}
+
+              type="file"
+              accept="image/*"
+              className='contentPhoto ms-4'
             />
-            <p style={{ fontWeight: 'bold', marginLeft: '15px' }}> {authUser?.displayName}</p>
           </div>
-          <div className="writeDesc">
-            <input type="text"
-              className='contentType'
-              placeholder='Write the post'
-              value={desc}
-              onChange={(e) => setdesc(e.target.value)}
-            />
+
+          <div className="desc col-md-5 col-xs-12 ms-md-3">
+            <div className="profImg d-none d-sm-block">
+              <img
+                src="https://w7.pngwing.com/pngs/129/292/png-transparent-female-avatar-girl-face-woman-user-flat-classy-users-icon.png"
+                className="card-img-top"
+                alt="..."
+              />
+              <p style={{ fontWeight: 'bold', marginLeft: '15px' }}> {authUser?.displayName}</p>
+            </div>
+            <div className="writeDesc">
+              <input type="text"
+                className='contentType'
+                placeholder='Write the post'
+                value={desc}
+                onChange={(e) => setdesc(e.target.value)}
+              />
+            </div>
           </div>
         </div>
       </div>
 
-    </div>
+
+
+      <div className="success container col-md-7 col-xs-12 mt-md-5 ms-md-7" >
+        <div className='Succes1 row'>
+          <div className="imgg col-md-5 col-xs-12">
+            <img alt="Posts" width="200px" height="200px" src={selectedImage ? URL.createObjectURL(selectedImage) : ''}></img>
+          </div>
+
+          <div className="descc col-md-5 col-xs-12 mt-md-5 mt-xs-4">
+            <p>{desc}</p>
+          </div>
+
+        </div>
+        <div>
+          <h5 style={{ marginTop: '10vh' }}>Your post is shared 👍</h5>
+        </div>
+      </div></>
   )
 }
 

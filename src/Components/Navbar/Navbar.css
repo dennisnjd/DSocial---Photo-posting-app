@@ -13,3 +13,24 @@
 .navbar .nav-link {
   color: white !important; /* Set the desired text color (white in this case) */
 }
+
+.showResults{
+}
+.cardn{
+  margin-top: 3vh;
+  height: 9vh;
+  background-color: white;
+  background-color: aquamarine;
+}
+.cardn img{
+  height: 9vh;
+  width: 5vw;
+  border-radius: 50%;
+}
+h6{
+  text-decoration: none;
+  color: blue;
+}
+h5{
+  color: #737373;
+}
