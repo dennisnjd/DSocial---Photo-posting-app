@@ -9,7 +9,10 @@ import { auth, db } from '../../firebase/config'
 
 import { listenToAuthChanges, userSignOut } from '../../firebase/AuthDetails';
 import { User } from 'firebase/auth';
-import { collection, query, where, orderBy, getDocs } from 'firebase/firestore';
+import { collection, query, where, getDocs } from 'firebase/firestore';
+
+import { CSSTransition } from 'react-transition-group';
+
 
 
 
@@ -17,6 +20,7 @@ function Navbar() {
 
     const [search, setSearch] = useState('')
     const [results, setResults] = useState<{ id: string; fName: string; lName: string; email: string; }[]>([]);
+    const [showResults, setShowResults] = useState(false) //show the search results div
 
     const [authUser, setAuthUser] = useState<User | null>(null);
     useEffect(() => {
@@ -63,6 +67,8 @@ function Navbar() {
 
     const handleSearch = (e: React.FormEvent) => {
         e.preventDefault();
+        setShowResults(true)
+
 
         // Check if 'search' is not empty
         if (search) {
@@ -82,8 +88,9 @@ function Navbar() {
                 .catch((error) => {
                     console.error('Error searching users:', error);
                 });
+
         } else {
-            setResults([])
+            console.log("no result for search");
         }
     };
 
@@ -139,48 +146,69 @@ function Navbar() {
                 </nav>
             </nav>
 
-            <div className="row">
-            <div className="showResults col-md-4 ml-auto">
-  {results ? (
-    <>
-      {/* <p>{results}</p> */}
-      {results.map((obj) => (
-        <div
-          className="cardn row col-md-12 col-xs-12"
-          style={{ width: '100%' }}
-          key={obj.id} // You should include a key prop for each mapped element
-        >
-          <div className="d-flex align-items-center col-md-8 col-xs-8">
-            <img
-              src="https://w7.pngwing.com/pngs/129/292/png-transparent-female-avatar-girl-face-woman-user-flat-classy-users-icon.png"
-              className="card-img-top"
-              alt="..."
-            />
-            <p
-              style={{
-                fontWeight: '600',
-                fontSize: '14px',
-                marginLeft: '15px',
-              }}
+            <CSSTransition
+                in={showResults}
+                timeout={700} // Adjust the duration as needed
+                classNames="fade" // CSS class names for the animation
+                unmountOnExit
             >
-              {obj.fName + ' ' + obj.lName}
-                </p>
-          </div>
-          <div className="col-md-4 col-xs-4 d-flex justify-content-end align-items-center">
-            
-            <h6>Show Profile</h6>
-          </div>
-        </div>
-      ))}
-    </>
-  ) : (
-    <></>
-  )}
-</div>
+                <>
+                    {showResults && (
 
-            </div>
+                        <div className="row">
+                            <div className="col-md-9 d-none d-sm-block"></div>
 
-        </div>
+                            <div className="showResults col-md-3 mt-1 col-xs-12">
+                                {results &&results.length > 0 ? (
+                                    <>
+                                        {results.map((obj) => (
+                                            <div
+                                                className="cardn row col-md-12"
+                                                key={obj.id} // You should include a key prop for each mapped element
+                                            >
+                                                <div className="row d-flex align-items-center col-10" >
+                                                    <img
+                                                        src="https://w7.pngwing.com/pngs/129/292/png-transparent-female-avatar-girl-face-woman-user-flat-classy-users-icon.png"
+                                                        className="img-responsive"
+                                                        width={0}
+                                                        height={20}
+                                                        alt="..."
+                                                    />
+                                                    <p
+                                                        className='col-7'
+                                                        style={{
+                                                            fontWeight: '600',
+                                                        }}
+                                                    >
+                                                        {obj.fName + ' ' + obj.lName}
+                                                    </p>
+                                                </div>
+                                                <div className="col-2 d-flex justify-content-end align-items-center">
+                                                    <h6>Profile</h6>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </>
+                                ) : (
+                                    <div className='cardn  col-md-12 pt-4'>
+                                        <h6 >No Users found...!</h6>
+                                    </div>
+                                )}
+                                <i className="closeIcon fa-regular fa-circle-xmark fa-shake fa-xl mt-4" onClick={() => setShowResults(false)}></i>
+
+                            </div>
+                        </div>
+
+
+
+
+                    )
+
+                    }
+                </>
+            </CSSTransition>
+
+        </div >
     )
 }
 

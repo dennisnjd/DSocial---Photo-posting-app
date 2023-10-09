@@ -15,22 +15,55 @@
 }
 
 .showResults{
+  background-color: rgb(185, 165, 204);
+  padding-left: 3vw;
+  display: block;
 }
 .cardn{
-  margin-top: 3vh;
+  margin-top: 2vh;
   height: 9vh;
   background-color: white;
-  background-color: aquamarine;
+  border-radius: 3%;
 }
 .cardn img{
-  height: 9vh;
-  width: 5vw;
   border-radius: 50%;
-}
+  width: 70px;
+  height: 43px;
+  margin-left: 6px;}
 h6{
   text-decoration: none;
   color: blue;
 }
 h5{
   color: #737373;
+}
+
+.closeIcon{
+  cursor:pointer;
+}
+
+
+/* Fade-in animation */
+.fade-enter {
+  opacity: 0;
+  transform: translateY(20px); /* Optional: Add a slight upward movement */
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.5s, transform 0.5s; /* Adjust the duration and other properties as needed */
+  
+}
+
+/* Fade-out animation */
+.fade-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fade-exit-active {
+  opacity: 0;
+  transform: translateY(20px); /* Optional: Add a slight upward movement */
+  transition: opacity 0.5s, transform 0.5s; /* Adjust the duration and other properties as needed */
 }
