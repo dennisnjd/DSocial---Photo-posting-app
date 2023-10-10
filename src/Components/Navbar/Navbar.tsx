@@ -19,12 +19,12 @@ import { CSSTransition } from 'react-transition-group';
 function Navbar() {
 
     const [search, setSearch] = useState('')
-    const [results, setResults] = useState<{ id: string; fName: string; lName: string; email: string; }[]>([]);
+    const [results, setResults] = useState<{ id: string; fName: string; lName: string; email: string; param: string; }[]>([]);
     const [showResults, setShowResults] = useState(false) //show the search results div
 
     const [authUser, setAuthUser] = useState<User | null>(null);
     useEffect(() => {
-        const user = auth.currentUser;
+        // const user = auth.currentUser;
 
         listenToAuthChanges(auth, setAuthUser); // checking if user is logged in and storing name in authUser.
         console.log("From Homepage", listenToAuthChanges);
@@ -80,6 +80,7 @@ function Navbar() {
                         fName: result.firstName,
                         lName: result.lastName,
                         email: result.email,
+                        param: result.firstName+result.id,
                     }));
 
                     // Set the mapped results in the state
@@ -116,11 +117,13 @@ function Navbar() {
                                     <Link className="nav-link active" aria-current="page" to="/">Home</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link" href="#">{authUser ? (
-                                        authUser.displayName
+                                    {authUser ? (
+                                        <Link to={`/profile/${authUser.displayName + authUser.uid}`} className="nav-link">
+                                            {authUser.displayName}
+                                        </Link>
                                     ) : (
                                         <p>Profile</p>
-                                    )}</a>
+                                    )}
                                 </li>
                                 <li className="nav-item" onClick={handleSignOut}>
                                     <a className="nav-link" >Logout</a>
@@ -159,7 +162,7 @@ function Navbar() {
                             <div className="col-md-9 d-none d-sm-block"></div>
 
                             <div className="showResults col-md-3 mt-1 col-xs-12">
-                                {results &&results.length > 0 ? (
+                                {results && results.length > 0 ? (
                                     <>
                                         {results.map((obj) => (
                                             <div
@@ -184,7 +187,7 @@ function Navbar() {
                                                     </p>
                                                 </div>
                                                 <div className="col-2 d-flex justify-content-end align-items-center">
-                                                    <h6>Profile</h6>
+                                                   <Link to={`/profile/${obj.param}`}> <h6>Profile</h6> </Link>
                                                 </div>
                                             </div>
                                         ))}

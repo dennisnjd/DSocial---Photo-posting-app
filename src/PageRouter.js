@@ -4,6 +4,7 @@ import HomePage from "./Pages/HomePage";
 import SIgnupPage from "./Pages/SIgnupPage";
 import LoginPage from "./Pages/LoginPage";
 import AddPostPage from "./Pages/AddPostPage";
+import ProfilePage from "./Pages/ProfilePage";
 
 
 const router = createBrowserRouter([
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
     {
       path: "/post",
       element: <AddPostPage/>
+    },
+    {
+      path:"/profile/:param",
+      element: <ProfilePage/>
     }
   ]
   );

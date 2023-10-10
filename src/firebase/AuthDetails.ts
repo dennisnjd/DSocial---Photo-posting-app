@@ -1,7 +1,5 @@
 import { User, onAuthStateChanged, signOut } from "firebase/auth";
-import { auth } from "./config";
 import { Auth } from 'firebase/auth';
-import { VoidExpression } from "typescript";
 
 
 //To check if the user is logged in  or not

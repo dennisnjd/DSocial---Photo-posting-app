@@ -3,7 +3,10 @@
     width: 99vw;
     height: 10vh;
 }
-
+.link{
+  text-decoration: none;
+  color: white;
+}
 
 .navbar .btn-outline-success {
     color: white;

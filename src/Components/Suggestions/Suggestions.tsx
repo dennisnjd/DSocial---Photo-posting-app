@@ -4,7 +4,6 @@ import "./Suggestions.css"
 
 import { collection, getDocs } from "firebase/firestore"; //
 import { db, auth } from '../../firebase/config';
-import { listenToAuthChanges } from '../../firebase/AuthDetails';
 import { User, onAuthStateChanged } from 'firebase/auth';
 
 import { doc, getDoc, updateDoc } from "firebase/firestore";
@@ -21,7 +20,7 @@ function Suggestions({ updatePosts }: { updatePosts: (newData: any) => void } ) 
 
 
     useEffect(() => {
-        const user = auth.currentUser;
+        // const user = auth.currentUser;
         const unSubscribe = onAuthStateChanged(auth, (user) => {
             if (user) {
                 setAuthUser(user)

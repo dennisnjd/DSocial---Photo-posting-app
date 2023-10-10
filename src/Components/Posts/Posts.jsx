@@ -5,7 +5,7 @@ import "./Posts.css"
 import { collection, getDocs, getDoc, where, query } from "firebase/firestore";
 import { db, auth } from '../../firebase/config';
 // import { listenToAuthChanges } from '../../firebase/AuthDetails';
-import { User, onAuthStateChanged } from 'firebase/auth';
+import {  onAuthStateChanged } from 'firebase/auth';
 import { Link } from 'react-router-dom';
 import { doc } from 'firebase/firestore';
 
@@ -73,10 +73,13 @@ function Posts({ postData }) {
                         const imageLink = doc.data().downloadURL;
                         const date = doc.data().createdAt;
                         const time = doc.data().time;
+                        const displayNames = doc.data().userName.split(' ');
+                        
+                        const param =  displayNames[0]+doc.data().userId;
 
                         if (doc.data().userId !== authUser?.uid) {
                             // console.log("Edaa Mone ..come on");
-                            data.push({ id, username, description, imageLink, date, time });
+                            data.push({ id, username, description, imageLink, date, time,param });
                             // data ? console.log("POST DATA ARE: ",data) : console.log("NO POST DATA");
                         }
                     });
@@ -126,8 +129,9 @@ function Posts({ postData }) {
                                     <div className="post col-md-8 col-xs-12 ms-md-5">
                                         <div className="postAccount col-xs-12" style={{ display: 'flex' }}>
                                             <div style={{ display: 'inline-block' }}>
-                                                <h6>{obj.username}</h6>
+                                            <Link className='link' to={`/profile/${obj.param}`}><h6>{obj.username}</h6></Link>
                                                 <p>Follow</p>
+
                                             </div>
                                             <h6 className="date">{obj.date}</h6>
                                         </div>
