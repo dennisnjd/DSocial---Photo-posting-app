@@ -1,0 +1,97 @@
+*{
+    padding: 0;
+}
+.container{
+    height: 70vh;
+    background-color: whitesmoke;   
+}
+.imgdiv{
+    min-height: 30vh;
+    height: auto;
+}
+
+#custom-file-upload {
+    display: inline-block;
+    background-color: #3498db;
+    color: #fff;
+    padding: 10px 15px;
+    cursor: pointer;
+    border: black 1px solid;
+  }
+  
+  #file-upload {
+    display: none;
+  }
+  .bioInput{
+    border: none;
+    background-color: whitesmoke;
+    border-bottom: solid rgb(238, 94, 166) 1px;
+    height: 100px;
+  }
+  textarea:focus{
+    outline: none;
+  }
+
+
+
+  input[type=file] {
+    width: 350px;
+    max-width: 100%;
+    color: #444444;
+    padding: 5px;
+    background: #fff;
+    border: none;
+    
+    border-bottom: 1px solid #ec3f9e;
+    border-left: 1px solid #ec3f9e;
+    border-right: 1px solid #ec3f9e ;
+
+  }
+  input[type=file]::file-selector-button {
+    margin-right: 20px;
+    border: none;
+    background: #084cdf;
+    padding: 10px 20px;
+    border-radius: 10px;
+    color: #fff;
+    cursor: pointer;
+    transition: background .2s ease-in-out;
+  }
+  
+  input[type=file]::file-selector-button:hover {
+    background: #0d45a5;
+  }
+
+  .bn39 {
+    background-image: linear-gradient(135deg, #008aff, #86d472);
+    box-sizing: border-box;
+    color: #ffffff;
+    display: block;
+    height: 40px;
+    font-size: 1.2em;
+    font-weight: 600;
+    padding: 4px;
+    position: relative;
+    text-decoration: none;
+    width: 5em;
+    z-index: 2;
+  }
+  
+  .bn39:hover {
+    color: #fff;
+  }
+  
+  .bn39 .bn39span {
+    align-items: center;
+    background: #0e0e10;
+    border-radius: 6px;
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    transition: background 0.5s ease;
+    width: 100%;
+  }
+  
+  .bn39:hover .bn39span {
+    background: transparent;
+  }

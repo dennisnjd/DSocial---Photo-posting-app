@@ -3,8 +3,6 @@
     border-radius: 15px;
     box-shadow: 20px 10px 20px rgba(0, 0, 0, 0.2);
 }
-#addPostDiv{
-}
 
 .heading {
     display: flex;
@@ -61,7 +59,7 @@ h6:hover {
 
 .contentType {
     width: 100%;
-    height: 47vh;
+    height: 44vh;
     vertical-align: top;
     border-color: transparent;
     word-wrap: break-word;
@@ -102,5 +100,3 @@ h6:hover {
     max-height: 90vh;
     z-index: 0;
 }
-
-.descc {}

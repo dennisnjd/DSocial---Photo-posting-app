@@ -19,7 +19,7 @@ import { CSSTransition } from 'react-transition-group';
 function Navbar() {
 
     const [search, setSearch] = useState('')
-    const [results, setResults] = useState<{ id: string; fName: string; lName: string; email: string; param: string; }[]>([]);
+    const [results, setResults] = useState<{ id: string; fName: string; lName: string; email: string; param: string; dpURL:string; }[]>([]);
     const [showResults, setShowResults] = useState(false) //show the search results div
 
     const [authUser, setAuthUser] = useState<User | null>(null);
@@ -81,6 +81,7 @@ function Navbar() {
                         lName: result.lastName,
                         email: result.email,
                         param: result.firstName+result.id,
+                        dpURL: result.dpURL,
                     }));
 
                     // Set the mapped results in the state
@@ -171,7 +172,7 @@ function Navbar() {
                                             >
                                                 <div className="row d-flex align-items-center col-10" >
                                                     <img
-                                                        src="https://w7.pngwing.com/pngs/129/292/png-transparent-female-avatar-girl-face-woman-user-flat-classy-users-icon.png"
+                                                        src={obj.dpURL ? obj.dpURL : "https://i.pinimg.com/736x/04/59/df/0459df7b4b1a4a42c676584e5e865748.jpg"}
                                                         className="img-responsive"
                                                         width={0}
                                                         height={20}

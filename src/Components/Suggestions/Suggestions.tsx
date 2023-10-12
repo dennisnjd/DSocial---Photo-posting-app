@@ -12,7 +12,7 @@ import { doc, getDoc, updateDoc } from "firebase/firestore";
 function Suggestions({ updatePosts }: { updatePosts: (newData: any) => void } ) {
 
     const [authUser, setAuthUser] = useState<User | null>(null);
-    const [suggested, setSuggested] = useState<{ id: string; fName: string; lName: string; email: string; time: string }[]>([]); //store details of suggested users
+    const [suggested, setSuggested] = useState<{ id: string; fName: string; lName: string; email: string; time: string; dpURL:string; }[]>([]); //store details of suggested users
 
     const [following, setFollowing] = useState<string[]>([]);
 
@@ -28,17 +28,18 @@ function Suggestions({ updatePosts }: { updatePosts: (newData: any) => void } ) 
                 const querySnapshotPromise = getDocs(collection(db, "users"));
                 querySnapshotPromise
                     .then((querySnapshot) => {
-                        const data: { id: string; fName: string; lName: string; email: string; time: string; }[] = []; // Define the type explicitly
+                        const data: { id: string; fName: string; lName: string; email: string; time: string; dpURL:string;}[] = []; // Define the type explicitly
                         querySnapshot.forEach((doc) => {
                             const id = doc.data().id;
                             const fName = doc.data().firstName;
                             const lName = doc.data().lastName;
                             const email = doc.data().email;
                             const time = doc.data().createdAt;
+                            const dpURL = doc.data().dpURL;
 
                             // Check if the userId is present in the 'followers' field
                             if (!doc.data().followers.includes(user.uid)) {
-                                data.push({ id, fName, lName, email, time });
+                                data.push({ id, fName, lName, email, time,dpURL });
                             }
                         });
                         // Now 'data' contains the fetched Firestore data
@@ -96,7 +97,7 @@ function Suggestions({ updatePosts }: { updatePosts: (newData: any) => void } ) 
 
         //update followers list of the other user
         let userToFollowDocId = fName + id;
-        console.log("Other user id : ", userToFollowDocId);
+        // console.log("Other user id : ", userToFollowDocId);
 
         const userDoccRef = doc(db, 'users', userToFollowDocId);
         getDoc(userDoccRef)
@@ -153,7 +154,7 @@ function Suggestions({ updatePosts }: { updatePosts: (newData: any) => void } ) 
                                 >
                                     <div className="d-flex align-items-center col-md-8 col-xs-8">
                                         <img
-                                            src="https://w7.pngwing.com/pngs/129/292/png-transparent-female-avatar-girl-face-woman-user-flat-classy-users-icon.png"
+                                            src={obj.dpURL ? obj.dpURL : "https://i.pinimg.com/736x/04/59/df/0459df7b4b1a4a42c676584e5e865748.jpg"}
                                             className="card-img-top"
                                             alt="..."
                                         />

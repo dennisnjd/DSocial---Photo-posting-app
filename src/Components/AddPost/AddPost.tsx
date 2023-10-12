@@ -19,23 +19,13 @@ function AddPost() {
 
 
   const [authUser, setAuthUser] = useState<User | null>(null);
-  const [nameData, setNameData] = useState<{ fName: string; lName: string; }[]>([]);
+  const [nameData, setNameData] = useState<{ fName: string; lName: string; dpURL: string; }[]>([]);
   const [userName, setUserName] = useState<string>('');
 
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [desc, setdesc] = useState('')
 
 
-
-  // useEffect(() => {
-  //   const user = auth.currentUser;
-
-  //   listenToAuthChanges(auth, setAuthUser); // checking if user is logged in and storing name in authUser.
-  //   // console.log("From Homepage", listenToAuthChanges);
-
-
-
-  // }, []);
 
 
   useEffect(() => {
@@ -54,22 +44,18 @@ function AddPost() {
             const userData = docSnapshot.data();
             const firstName = userData.firstName;
             const lastName = userData.lastName;
+            const dpURL = userData.dpURL;
   
             // Create an array with fName and lName
-            const data = [{ fName: firstName, lName: lastName }];
+            const data = [{ fName: firstName, lName: lastName  , dpURL: dpURL}];
   
             // Concatenate firstName and lastName to create userName
             const fullName = firstName + ' ' + lastName;
   
-            // Now you have fName, lName, and userName
-            console.log('First Name:', firstName);
-            console.log('Last Name:', lastName);
-            console.log('User Name:', fullName);
-  
+ 
             if (data) {
               setNameData(data);
               setUserName(fullName); // Set the userName in state
-              console.log("USER NAME IS: ",fullName);
               
             } else {
               setNameData([]);
@@ -112,7 +98,7 @@ function AddPost() {
         try {
           // Upload the selected image to Firebase Storage
           const snapshot = await uploadBytes(storageRef, selectedImage);
-          console.log("Image uploaded successfully");
+          console.log("DP  uploaded successfully");
 
           // Get the download URL of the uploaded image
           const downloadURL = await getDownloadURL(storageRef);
@@ -184,12 +170,15 @@ function AddPost() {
 
           <div className="desc col-md-5 col-xs-12 ms-md-3">
             <div className="profImg d-none d-sm-block">
+            {nameData.map((item, index) => (
               <img
-                src="https://w7.pngwing.com/pngs/129/292/png-transparent-female-avatar-girl-face-woman-user-flat-classy-users-icon.png"
+                src={item.dpURL ? item.dpURL : "https://i.pinimg.com/736x/04/59/df/0459df7b4b1a4a42c676584e5e865748.jpg"}
                 className="card-img-top"
                 alt="..."
               />
-              <p style={{ fontWeight: 'bold', marginLeft: '15px' }}> {authUser?.displayName}</p>
+            )
+            )}
+              <p style={{ fontWeight: 'bold', marginLeft: '15px' }}> {userName}</p>
             </div>
             <div className="writeDesc">
               <input type="text"

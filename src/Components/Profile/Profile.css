@@ -1,91 +1,27 @@
-.profImg {
-    width: 13vw;
-    height: auto;
-
-}
-
 .container {
     border: 0;
     padding-top: 4vh;
 }
 
-.bn30 {
-    border: 5em;
-    cursor: pointer;
-    outline: none;
-    font-size: 13px;
-    -webkit-transform: translate(0);
-    transform: translate(0);
-    background-image: linear-gradient(45deg, #4568dc, #b06ab3);
-    padding: 0.7em 2em;
-    border-radius: 65px;
-    box-shadow: 5px 5px 10px rgba(13, 219, 106, 0.438);
-    -webkit-transition: box-shadow 0.25s;
-    transition: box-shadow 0.25s;
-    color: white;
-}
-
-.bn30 .text {
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-image: linear-gradient(45deg, #4568dc, #b06ab3);
-}
-
-.bn30:after {
-    content: "";
-    border-radius: 18px;
-    position: absolute;
-    margin: 4px;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    z-index: -1;
-    background: #0e0e10;
-}
-
-.bn30:hover {
-    background-image: linear-gradient(-45deg, #4568dc, #b06ab3);
-    box-shadow: 0 12px 24px rgba(128, 128, 128, 0.1);
-}
-
-.bn30:hover .text {
-    background-image: linear-gradient(-45deg, #4568dc, #b06ab3);
-}
-
-.body {
-    min-height: 40vh;
-    height: auto;
-}
-
-.postPhoto {
-    cursor: pointer;
-    height: auto;
-
-}
-
-.card-img {
-    max-height: 50vh !important;
-    overflow: hidden;
-    transition: transform 0.6s cubic-bezier(0.25, 0.45, 0.45, 0.95);
-}
-
-/* Media query for smaller screens (e.g., mobile devices) */
-@media (max-width: 768px) {
-    .card-img {
-        max-height: 11vh !important;
-    }
-}
-
-.loveSym {
-    display: none;
-}
 
 .postPhoto :hover {
     transform: scale(1.1);
 }
 
-.postPhoto :hover .loveSym {
-    display: block;
-}
+
+
+.gradient-custom-2 {
+    /* fallback for old browsers */
+    background: #fbc2eb;
+    
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(to right, rgba(251, 194, 235, 1), rgba(166, 193, 238, 1));
+    
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, rgba(251, 194, 235, 1), rgba(166, 193, 238, 1))
+    }
+
+    .btnFlwng{
+        outline: none;
+      
+    }

@@ -5,7 +5,7 @@ import SIgnupPage from "./Pages/SIgnupPage";
 import LoginPage from "./Pages/LoginPage";
 import AddPostPage from "./Pages/AddPostPage";
 import ProfilePage from "./Pages/ProfilePage";
-
+import EditProfilePage from "./Pages/EditProfilePage"
 
 const router = createBrowserRouter([
     { 
@@ -27,6 +27,10 @@ const router = createBrowserRouter([
     {
       path:"/profile/:param",
       element: <ProfilePage/>
+    },
+    {
+      path:"/editprofile",
+      element: <EditProfilePage/>
     }
   ]
   );
