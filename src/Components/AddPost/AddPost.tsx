@@ -130,7 +130,7 @@ function AddPost() {
 
           // Delay the navigation after 1.5 seconds
           setTimeout(() => {
-            navigate("/");
+            navigate("/home ");
           }, 1500);
         } catch (error) {
           console.error("Error uploading image:", error);

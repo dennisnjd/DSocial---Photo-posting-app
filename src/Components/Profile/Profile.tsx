@@ -3,7 +3,10 @@ import React, { useEffect, useState } from 'react'
 import { auth, db } from '../../firebase/config'
 import { listenToAuthChanges } from '../../firebase/AuthDetails';
 import { User } from 'firebase/auth';
-import { getDoc, doc, collection, query, where, getDocs, updateDoc } from 'firebase/firestore';
+import { getDoc, collection, query, where, getDocs, updateDoc, deleteDoc } from 'firebase/firestore';
+import { doc } from 'firebase/firestore';
+import { ref, deleteObject } from 'firebase/storage';
+import { storage } from '../../firebase/config';
 
 import "./Profile.css"
 import { Link } from 'react-router-dom'
@@ -21,7 +24,6 @@ interface userDetails {
 }
 
 interface posts {
-    description: string;
     downloadURL: string;
     time: string;
 }
@@ -41,6 +43,9 @@ function Profile() {
     const [posts, setPosts] = useState<posts[]>([]);//profile user posts
     const [followList, setFollowList] = useState<followList | null>(null);//current user following list
     const [isUserFollowed, setIsUserFollowed] = useState(false) // check current user follows profile user
+    const [shouldFetchPosts, setShouldFetchPosts] = useState(false);
+
+
 
 
     //to get following list of the logged in user to check if the user in the profle is i the following list of the curent user
@@ -149,7 +154,7 @@ function Profile() {
         }
 
 
-    }, [userDetails, param])
+    }, [userDetails, param, shouldFetchPosts])
 
 
     const userId = authUser ? authUser.displayName + authUser.uid : "" // Replace with the actual user's document ID
@@ -214,6 +219,48 @@ function Profile() {
 
 
     }
+
+
+
+    const handleDeletePost = async (dwldURL: string) => {
+        // Add logic to handle the delete action
+        console.log('Delete clicked', dwldURL);
+
+        try {
+            // Step 1: Query the Firestore collection to find the document with matching downloadURL
+            const postsCollection = collection(db, 'posts');
+            const postsQuery = query(postsCollection, where('downloadURL', '==', dwldURL));
+            const querySnapshot = await getDocs(postsQuery);
+
+            if (!querySnapshot.empty) {
+                // Check if there are matching documents
+
+                // Assuming there's only one matching document, you can access it directly
+                const document = querySnapshot.docs[0];
+
+                // Retrieve the document ID
+                const postId = document.id;
+
+                // Create a reference to the document
+                const postRef = doc(db, 'posts', postId);
+
+                // Delete the document from Firestore
+                await deleteDoc(postRef);
+            }
+
+            const storageRef = ref(storage, dwldURL);
+
+            // Delete the image from Firebase Storage
+            await deleteObject(storageRef);
+            console.log("Image deleted from Firebase Storage.");
+
+            setShouldFetchPosts(true);
+
+        } catch (error) {
+            console.error('Error deleting post:', error);
+        }
+    }
+
 
 
     return (
@@ -288,14 +335,14 @@ function Profile() {
                             <div className="card-body p-4 text-black">
                                 <div className="mb-5">
                                     <p className="lead fw-normal mb-1">Bio</p>
-                                    <div className="p-4" style={{ backgroundColor: "#f8f9fa" }}>
+                                    <div className="p-4" style={{ backgroundColor: "#F6FDC3" }}>
                                         <p className="font-italic mb-1">{userDetails?.bio}</p>
                                     </div>
                                 </div>
                                 <div className="d-flex justify-content-between align-items-center mb-4">
                                     <p className="lead fw-normal mb-0">Photos shared</p>
                                 </div>
-                                <div className="row g-2">
+                                <div className="row g-2 col-12">
 
                                     {posts && (
                                         posts
@@ -303,16 +350,24 @@ function Profile() {
                                             .sort((a, b) => new Date(b.time).getTime() - new Date(a.time).getTime())
                                             .map((obj) => (
 
-                                                <div className="col mb-2 ">
-                                                    <img src={obj.downloadURL}
-                                                        alt="image 1/" className="w-100 rounded-3" />
+                                                <div className="imgOutline card bg-light text-white mb-2 col-4">
+                                                    <img src={obj.downloadURL} alt="image 1" className="w-100 rounded-3 card-img img-responsive" />
+                                                    {userDetails?.id === authUser?.uid && (
+                                                        <div
+                                                            className="dltsym card-img-overlay d-flex  align-items-end justify-content-end"
+                                                            onClick={() => handleDeletePost(obj.downloadURL)}
+                                                        >
+                                                            <i className="fa-solid fa-trash" style={{ color: "#65e3ec", cursor: "pointer" }}></i>
+                                                        </div>
+                                                    )}
 
                                                 </div>
-
                                             ))
                                     )}
 
                                 </div>
+
+
                             </div>
                         </div>
                     </div>

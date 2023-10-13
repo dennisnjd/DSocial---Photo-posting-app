@@ -115,7 +115,7 @@ function Navbar() {
                         <div className="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                                 <li className="nav-item">
-                                    <Link className="nav-link active" aria-current="page" to="/">Home</Link>
+                                    <Link className="nav-link active" aria-current="page" to="/home">Home</Link>
                                 </li>
                                 <li className="nav-item">
                                     {authUser ? (
@@ -126,7 +126,7 @@ function Navbar() {
                                         <p>Profile</p>
                                     )}
                                 </li>
-                                <li className="nav-item" onClick={handleSignOut}>
+                                <li className="nav-item" onClick={handleSignOut} style={{cursor:"pointer"}}>
                                     <a className="nav-link" >Logout</a>
                                 </li>
                                 <li className="nav-item">

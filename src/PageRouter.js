@@ -10,15 +10,15 @@ import EditProfilePage from "./Pages/EditProfilePage"
 const router = createBrowserRouter([
     { 
       path: "/",
-      element: <HomePage/> ,
+      element: <LoginPage/> ,
     },
     {
       path: "/signup",
       element: <SIgnupPage/>,
     },
     {
-      path: "/login",
-      element: <LoginPage/>
+      path: "/home",
+      element: <HomePage/>
     },
     {
       path: "/post",
