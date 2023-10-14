@@ -16,6 +16,7 @@ import { CSSTransition } from 'react-transition-group';
 
 
 
+
 function Navbar() {
 
     const [search, setSearch] = useState('')
@@ -116,6 +117,7 @@ function Navbar() {
                             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                                 <li className="nav-item">
                                     <Link className="nav-link active" aria-current="page" to="/home">Home</Link>
+
                                 </li>
                                 <li className="nav-item">
                                     {authUser ? (
@@ -188,7 +190,7 @@ function Navbar() {
                                                     </p>
                                                 </div>
                                                 <div className="col-2 d-flex justify-content-end align-items-center">
-                                                   <Link to={`/profile/${obj.param}`}> <h6>Profile</h6> </Link>
+                                                   <Link to={`/profile/${obj.param}`} style={{textDecoration:"none"}}> <h6>Profile</h6> </Link>
                                                 </div>
                                             </div>
                                         ))}

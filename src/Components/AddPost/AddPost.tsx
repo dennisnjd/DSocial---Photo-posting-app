@@ -169,7 +169,7 @@ function AddPost() {
           </div>
 
           <div className="desc col-md-5 col-xs-12 ms-md-3">
-            <div className="profImg d-none d-sm-block">
+            <div className="profImg d-none d-sm-block mt-2 ">
             {nameData.map((item, index) => (
               <img
                 src={item.dpURL ? item.dpURL : "https://i.pinimg.com/736x/04/59/df/0459df7b4b1a4a42c676584e5e865748.jpg"}

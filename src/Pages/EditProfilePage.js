@@ -3,6 +3,8 @@ import EditProfile from '../Components/editProfile/EditProfile'
 import Navbar from '../Components/Navbar/Navbar'
 
 function EditProfilePage() {
+
+
     return (
         <div>
             <Navbar/>

@@ -70,3 +70,4 @@ h5{
   transform: translateY(20px); /* Optional: Add a slight upward movement */
   transition: opacity 0.5s, transform 0.5s; /* Adjust the duration and other properties as needed */
 }
+

@@ -1,6 +1,7 @@
 
 .posts {
-    background-color: white;
+    /* background-color: white; */
+    background-color: #F9E795  ;
     height:90vh;
     align-items: center;
     justify-content: center;
@@ -8,7 +9,7 @@
 }
 
 .post {
-    background-color: rgb(241, 241, 241);
+    background-color: whitesmoke    ;
     max-height: auto;
     padding: 2em;
     border: solid rgb(240, 214, 214) 1px;
@@ -44,7 +45,6 @@
     max-height:200px;
 }
 .expandedbtn{
-background-color: aquamarine;
 border: burlywood 1px solid;
 }
 .postDesc {
@@ -55,3 +55,9 @@ border: burlywood 1px solid;
     text-decoration: none;
 }
 
+button{
+    border: none;
+    background-color: whitesmoke;
+    border-radius: 50%;
+    font-weight: bolder;
+}

@@ -2,3 +2,15 @@
     display: flex;
   }
  
+    .door-animation {
+      transform-origin: top;
+      transform: rotateY(0deg);
+      transition: transform 3s ease-in-out;
+
+    }
+    .door-opened {
+      transform: rotateY(90deg);
+
+    }
+ 
+  

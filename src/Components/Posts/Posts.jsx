@@ -130,7 +130,7 @@ function Posts({ postData }) {
                                         <div className="postAccount col-xs-12" style={{ display: 'flex' }}>
                                             <div style={{ display: 'inline-block' }}>
                                             <Link className='link' to={`/profile/${obj.param}`}><h6>{obj.username}</h6></Link>
-                                                <p>Follow</p>
+                                                <p>Following</p>
 
                                             </div>
                                             <h6 className="date">{obj.date}</h6>
@@ -155,7 +155,7 @@ function Posts({ postData }) {
                     ) : (
                         <>
                             <h2>User not Logged in</h2>
-                            <p><Link to='/login'>Login</Link> to see posts</p>
+                            <p><Link to='/'>Login</Link> to see posts</p>
                         </>
                     )}
 

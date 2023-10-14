@@ -30,7 +30,7 @@ function Login() {
         signInWithEmailAndPassword(auth, email, password)
             .then((useCredential) => {
                 console.log(useCredential);
-                navigate("/")
+                navigate("/home")
 
             }).catch((error) => {
                 alert(error.message)
