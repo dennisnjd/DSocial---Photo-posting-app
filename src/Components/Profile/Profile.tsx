@@ -313,7 +313,7 @@ function Profile() {
                                             <h5>{userDetails.firstName + " " + userDetails.lastName}</h5>
                                         </div>
                                     </div>
-                                    <div className="p-4 text-black" style={{ backgroundColor: "#f8f9fa" }}>
+                                    <div className="p-4 text-black mt-4" style={{ backgroundColor: "#f8f9fa" }}>
                                         <div className="d-flex justify-content-end text-center py-1">
                                             <div>
                                                 <p className="mb-1 h5">{posts.length}</p>
@@ -332,7 +332,7 @@ function Profile() {
                                 </div>
                             )}
 
-                            <div className="card-body p-4 text-black">
+                            <div className="card-body p-4 text-black mt-5">
                                 <div className="mb-5">
                                     <p className="lead fw-normal mb-1">Bio</p>
                                     <div className="p-4" style={{ backgroundColor: "#F6FDC3" }}>

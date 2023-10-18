@@ -151,7 +151,7 @@ function Posts({ postData }) {
                                             {isContentExpanded ? 'See less' : 'See more'}
                                         </button>
                                     </div>
-                                    {window.innerWidth <= 700 && <Suggestions className="col-sm-0" />}
+                                    {index === 0 && window.innerWidth <= 700 && <Suggestions className="col-sm-0" />}
                                     </>
                                 ))
                         ) : (
