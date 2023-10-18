@@ -12,5 +12,9 @@
       transform: rotateY(90deg);
 
     }
+
+    .ok{
+      overflow-y: auto;
+    }
  
   

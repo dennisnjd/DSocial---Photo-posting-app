@@ -167,12 +167,14 @@ function Suggestions({ updatePosts }: { updatePosts: (newData: any) => void } ) 
                                         >
                                             {obj.fName + ' ' + obj.lName}
                                         </p>
-                                    </div>
-                                    <div className="col-md-4 col-xs-4 d-flex justify-content-end align-items-center">
+
+                                        <div className="col-md-4 col-xs-4 d-flex justify-content-end align-items-center ms-5 ps-5">
                                         <h6 onClick={() => handleFollow(obj.id, obj.fName)}>
                                             {following.includes(obj.id) ? 'Following' : 'Follow'}
                                         </h6>
                                     </div>
+                                    </div>
+                                  
                                 </div>
                             ))
                         }

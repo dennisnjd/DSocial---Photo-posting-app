@@ -1,24 +1,30 @@
 .people {
-    background-color:white;
+    background-color: white;
     height: auto;
-    /* margin-bottom: solid 1px #737373; */
+    overflow-y: auto;
+    margin-top: 3vh;
+    padding-left: 2.5vh;
+    padding-bottom: 2vh;
 }
 
-.cardk{
+.cardk {
     margin-top: 3vh;
     height: 9vh;
     display: flex;
     background-color: #F9E795;
 }
-.cardk img{
+
+.cardk img {
     height: 9vh;
     width: 5vw;
     border-radius: 50%;
 }
-h6{
+
+h6 {
     text-decoration: none;
     color: blue;
 }
-h5{
+
+h5 {
     color: #737373;
 }

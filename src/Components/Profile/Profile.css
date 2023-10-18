@@ -1,6 +1,7 @@
 .container {
     border: 0;
     padding-top: 4vh;
+    overflow:auto;
 }
 
 

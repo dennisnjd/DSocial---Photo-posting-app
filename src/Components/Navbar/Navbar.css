@@ -1,7 +1,8 @@
 .navbar{
     display: inline-flex;
-    width: 99vw;
+    width: 100vw;
     height: 10vh;
+    z-index: 1;
 }
 .link{
   text-decoration: none;
@@ -17,6 +18,9 @@
   color: white !important; /* Set the desired text color (white in this case) */
 }
 
+.showr{
+display: block  ;
+}
 .showResults{
   background-color: #fbc2eb;
   padding-left: 3vw;
@@ -70,4 +74,6 @@ h5{
   transform: translateY(20px); /* Optional: Add a slight upward movement */
   transition: opacity 0.5s, transform 0.5s; /* Adjust the duration and other properties as needed */
 }
-
+.navbar>.container-fluid{
+  background-color: #212529;
+}

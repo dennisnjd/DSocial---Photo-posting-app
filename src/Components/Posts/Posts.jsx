@@ -9,6 +9,8 @@ import {  onAuthStateChanged } from 'firebase/auth';
 import { Link } from 'react-router-dom';
 import { doc } from 'firebase/firestore';
 
+import Suggestions from '../Suggestions/Suggestions';
+
 
 function Posts({ postData }) {
 
@@ -125,7 +127,8 @@ function Posts({ postData }) {
                             posts
                                 .slice()
                                 .sort((a, b) => new Date(b.time).getTime() - new Date(a.time).getTime())
-                                .map((obj) => (
+                                .map((obj,index) => (
+                                    <>
                                     <div className="post col-md-8 col-xs-12 ms-md-5">
                                         <div className="postAccount col-xs-12" style={{ display: 'flex' }}>
                                             <div style={{ display: 'inline-block' }}>
@@ -148,6 +151,8 @@ function Posts({ postData }) {
                                             {isContentExpanded ? 'See less' : 'See more'}
                                         </button>
                                     </div>
+                                    {window.innerWidth <= 700 && <Suggestions className="col-sm-0" />}
+                                    </>
                                 ))
                         ) : (
                             <p>Follow some users to see posts</p>

@@ -30,7 +30,7 @@ function HomePage() {
   }
 
   return (
-    <div>
+    <div className='ok'>
       <PageTransition>
         <Navbar />
 

@@ -27,9 +27,18 @@
 
 .post img {
     margin-top: 2em;
-    max-height: 50vh !important;
-    max-width: 40vw;
-    border-radius: 10%;
+    max-height: 90vh !important;
+    max-width: 43vw;   
+    /* max-width: 80vw; */
+    border-radius: 3%;
+}
+
+@media (max-width: 768px) {
+    .post img {
+        margin-top: 2em;
+        max-height: 90vh !important;
+        max-width: 80vw;
+        border-radius: 3%;    }
 }
 
 .date {

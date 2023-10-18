@@ -20,7 +20,7 @@ import { CSSTransition } from 'react-transition-group';
 function Navbar() {
 
     const [search, setSearch] = useState('')
-    const [results, setResults] = useState<{ id: string; fName: string; lName: string; email: string; param: string; dpURL:string; }[]>([]);
+    const [results, setResults] = useState<{ id: string; fName: string; lName: string; email: string; param: string; dpURL: string; }[]>([]);
     const [showResults, setShowResults] = useState(false) //show the search results div
 
     const [authUser, setAuthUser] = useState<User | null>(null);
@@ -31,6 +31,19 @@ function Navbar() {
         console.log("From Homepage", listenToAuthChanges);
 
     }, []);
+
+    useEffect(() => {
+        // ...
+
+        // Add code to collapse the navbar when search results are displayed
+        if (showResults) {
+            const navbarCollapse = document.querySelector(".navbar-collapse");
+            if (navbarCollapse) {
+                navbarCollapse.classList.remove("show");
+            }
+        }
+    }, [showResults]);
+
 
 
     //firebase function for Logout user
@@ -81,7 +94,7 @@ function Navbar() {
                         fName: result.firstName,
                         lName: result.lastName,
                         email: result.email,
-                        param: result.firstName+result.id,
+                        param: result.firstName + result.id,
                         dpURL: result.dpURL,
                     }));
 
@@ -103,9 +116,9 @@ function Navbar() {
     return (
         <div>
 
-
-            <nav className="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
-                <nav className="navbar navbar-expand-lg bg-body-tertiary">
+            <div>
+                {/* <nav className="navbar bg-dark border-bottom border-body" data-bs-theme="dark"> */}
+                <nav className="navbar navbar-expand-lg bg-body-tertiary navbar-light bg-dark border-bottom border-body">
                     <div className=" cls container-fluid">
                         <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
                             <LockOutlinedIcon />
@@ -128,7 +141,7 @@ function Navbar() {
                                         <p>Profile</p>
                                     )}
                                 </li>
-                                <li className="nav-item" onClick={handleSignOut} style={{cursor:"pointer"}}>
+                                <li className="nav-item" onClick={handleSignOut} style={{ cursor: "pointer" }}>
                                     <a className="nav-link" >Logout</a>
                                 </li>
                                 <li className="nav-item">
@@ -140,7 +153,7 @@ function Navbar() {
                                 <input
                                     className="form-control me-2"
                                     type="search"
-                                    placeholder="Search"
+                                    placeholder="Search first name"
                                     aria-label="Search"
                                     onChange={(e) => setSearch(e.target.value)}
                                 />
@@ -150,7 +163,8 @@ function Navbar() {
                         </div>
                     </div>
                 </nav>
-            </nav>
+                {/* </nav> */}
+            </div>
 
             <CSSTransition
                 in={showResults}
@@ -158,7 +172,7 @@ function Navbar() {
                 classNames="fade" // CSS class names for the animation
                 unmountOnExit
             >
-                <>
+                <div className='showr'>
                     {showResults && (
 
                         <div className="row">
@@ -190,7 +204,7 @@ function Navbar() {
                                                     </p>
                                                 </div>
                                                 <div className="col-2 d-flex justify-content-end align-items-center">
-                                                   <Link to={`/profile/${obj.param}`} style={{textDecoration:"none"}}> <h6>Profile</h6> </Link>
+                                                    <Link to={`/profile/${obj.param}`} style={{ textDecoration: "none" }}> <h6>Profile</h6> </Link>
                                                 </div>
                                             </div>
                                         ))}
@@ -211,7 +225,7 @@ function Navbar() {
                     )
 
                     }
-                </>
+                </div>
             </CSSTransition>
 
         </div >

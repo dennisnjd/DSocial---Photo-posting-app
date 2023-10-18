@@ -354,7 +354,7 @@ function Profile() {
                                                     <img src={obj.downloadURL} alt="image 1" className="w-100 rounded-3 card-img img-responsive" />
                                                     {userDetails?.id === authUser?.uid && (
                                                         <div
-                                                            className="dltsym card-img-overlay d-flex  align-items-end justify-content-end"
+                                                            className="dltsym card-img-overlay align-items-end justify-content-end"
                                                             onClick={() => handleDeletePost(obj.downloadURL)}
                                                         >
                                                             <i className="fa-solid fa-trash" style={{ color: "#65e3ec", cursor: "pointer" }}></i>
