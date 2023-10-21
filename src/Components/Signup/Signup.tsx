@@ -71,7 +71,7 @@ function Signup() {
                     following: [],
                     followers:[],
                 }).then(() => {
-                    navigate("/login")
+                    navigate("/")
                 });
             })
     }
