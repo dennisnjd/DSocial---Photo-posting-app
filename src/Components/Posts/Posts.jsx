@@ -5,7 +5,7 @@ import "./Posts.css"
 import { collection, getDocs, getDoc, where, query } from "firebase/firestore";
 import { db, auth } from '../../firebase/config';
 // import { listenToAuthChanges } from '../../firebase/AuthDetails';
-import {  onAuthStateChanged } from 'firebase/auth';
+import { onAuthStateChanged } from 'firebase/auth';
 import { Link } from 'react-router-dom';
 import { doc } from 'firebase/firestore';
 
@@ -76,12 +76,12 @@ function Posts({ postData }) {
                         const date = doc.data().createdAt;
                         const time = doc.data().time;
                         const displayNames = doc.data().userName.split(' ');
-                        
-                        const param =  displayNames[0]+doc.data().userId;
+
+                        const param = displayNames[0] + doc.data().userId;
 
                         if (doc.data().userId !== authUser?.uid) {
                             // console.log("Edaa Mone ..come on");
-                            data.push({ id, username, description, imageLink, date, time,param });
+                            data.push({ id, username, description, imageLink, date, time, param });
                             // data ? console.log("POST DATA ARE: ",data) : console.log("NO POST DATA");
                         }
                     });
@@ -127,35 +127,38 @@ function Posts({ postData }) {
                             posts
                                 .slice()
                                 .sort((a, b) => new Date(b.time).getTime() - new Date(a.time).getTime())
-                                .map((obj,index) => (
+                                .map((obj, index) => (
                                     <>
-                                    <div className="post col-md-8 col-xs-12 ms-md-5">
-                                        <div className="postAccount col-xs-12" style={{ display: 'flex' }}>
-                                            <div style={{ display: 'inline-block' }}>
-                                            <Link className='link' to={`/profile/${obj.param}`}><h6>{obj.username}</h6></Link>
-                                                <p>Following</p>
+                                        <div className="post col-md-8 col-xs-12 ms-md-5">
+                                            <div className="postAccount col-xs-12" style={{ display: 'flex' }}>
+                                                <div style={{ display: 'inline-block' }}>
+                                                    <Link className='link' to={`/profile/${obj.param}`}><h6>{obj.username}</h6></Link>
+                                                    <p>Following</p>
 
+                                                </div>
+                                                <h6 className="date">{obj.date}</h6>
                                             </div>
-                                            <h6 className="date">{obj.date}</h6>
-                                        </div>
-                                        <div className="postScene">
-                                            <img src={obj.imageLink} className="img-thumbnail" alt="..." />
-                                            <div className={`content ${isContentExpanded ? 'expanded' : ''}`}>
-                                                <p className="postDesc">{obj.description}</p>
+                                            <div className="postScene">
+                                                <img src={obj.imageLink} className="img-thumbnail" alt="..." />
+                                                <div className={`content ${isContentExpanded ? 'expanded' : ''}`}>
+                                                    <p className="postDesc">{obj.description}</p>
+                                                </div>
                                             </div>
+                                            <button
+                                                className={`seeMore ${isContentExpanded ? 'expandedbtn' : ''}`}
+                                                onClick={seeMoreHandle}
+                                            >
+                                                {isContentExpanded ? 'See less' : 'See more'}
+                                            </button>
                                         </div>
-                                        <button
-                                            className={`seeMore ${isContentExpanded ? 'expandedbtn' : ''}`}
-                                            onClick={seeMoreHandle}
-                                        >
-                                            {isContentExpanded ? 'See less' : 'See more'}
-                                        </button>
-                                    </div>
-                                    {index === 0 && window.innerWidth <= 700 && <Suggestions className="col-sm-0" />}
+                                        {index === 0 && window.innerWidth <= 700 && <Suggestions className="col-sm-0" />}
                                     </>
                                 ))
                         ) : (
-                            <p>Follow some users to see posts</p>
+                            <>
+                                <p>Follow some users to see posts</p>
+                                {window.innerWidth <= 700 && <Suggestions className="col-sm-0" />}
+                            </>
                         )
                     ) : (
                         <>
